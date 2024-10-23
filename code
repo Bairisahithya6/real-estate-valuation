@@ -1,0 +1,30 @@
+import pandas as pd
+import numpy as np
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier,export_text
+from sklearn.tree import DecisionTreeRegressor
+In [3]:
+data=pd.read_csv('/content/drive/MyDrive/Realestatedatasetcmpl.csv')
+data.head()
+x=data.drop('Y',axis=1)
+y=data['Y']
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3)
+In [5]:
+model=DecisionTreeClassifier(random_state=0,max_depth=3)
+s=model.fit(x_train,y_train)
+s1=export_text(s)
+print(s1)
+pred=model.predict(x_test)
+print(classification_report(y_test,pred))
+print(confusion_matrix(y_test,pred))
+from sklearn.metrics import accuracy_score
+print("Accuracy: ",accuracy_score(y_test,pred)*100)
+Accuracy:  3.3333333333333335
+In [10]:
+age=int(input())
+num=int(input())
+
+data={'X2':[age],'X4':[num]}
+data=pd.DataFrame(data)
